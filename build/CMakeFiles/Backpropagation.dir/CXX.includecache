@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/sanyogchhetri/ClionProjects/Backpropagation/Neuron.cpp
+Neuron.h
+/Users/sanyogchhetri/ClionProjects/Backpropagation/Neuron.h
+random
+-
+
+/Users/sanyogchhetri/ClionProjects/Backpropagation/Neuron.h
+iostream
+-
+vector
+-
+
+/Users/sanyogchhetri/ClionProjects/Backpropagation/main.cpp
+iostream
+-
+Neuron.h
+/Users/sanyogchhetri/ClionProjects/Backpropagation/Neuron.h
+

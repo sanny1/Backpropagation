@@ -1,0 +1,1 @@
+/Users/sanyogchhetri/ClionProjects/Backpropagation/build/CMakeFiles/Backpropagation.dir

@@ -1,0 +1,5 @@
+1.cd into build folder
+2.run cmake ..
+3.run make
+4.step 3 create a binary called Backpropagation 
+5.To run the application ./Backpropagation
