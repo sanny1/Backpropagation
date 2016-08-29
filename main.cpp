@@ -19,9 +19,9 @@ int main()
 	vector<float> inpu3 = {0, 0};
 	vector<vector<float>> inputs = {inpu, inpu1, inpu2, inpu3};
 	vector<int> output = {0, 1, 1, 0};
-	Neuron *N = new Neuron(inpu.size(), 1);//hidden
-	Neuron *N1 = new Neuron(inpu.size(), 1);
-	Neuron *O = new Neuron(2, 2);//output
+	Neuron *N = new Neuron(inpu.size(), -1);//hidden
+	Neuron *N1 = new Neuron(inpu.size(), -1);
+	Neuron *O = new Neuron(2, -1);//output
 	float sum = 0;
 	O->Set_Desired_Output(output);
 	for(int j = 0; j < 105000; j++)
@@ -29,7 +29,7 @@ int main()
 //	do
 //	{
 	sum = 0;
-		cout << "[";
+		cout << "[ ";
 	for (int i = 0; i < inputs.size(); i++)
 	{
 		N->Set_input(inputs.at(i));//hidden layer
@@ -40,15 +40,14 @@ int main()
 		O->Set_input(temp_input);
 		O->Activation_Func();
 		O->Error_Evalutation(i);
-		O->Set_pre_it(previous_it.at(i));
+//		O->Set_pre_it(previous_it.at(i));
 		O->Adjustment_Func();
 		N->Set_Error_Gradient(O->Get_Hidden_Grad().at(0));
 		N1->Set_Error_Gradient(O->Get_Hidden_Grad().at(1));
-		N->Set_pre_it(previous_it1.at(i));
-		N1->Set_pre_it(previous_it2.at(i));
+//		N->Set_pre_it(previous_it1.at(i));
+//		N1->Set_pre_it(previous_it2.at(i));
 		N->Adjustment_Func();
 		N1->Adjustment_Func();
-
 		cout << O->Get_Actual_Output() << " ";
 //		if (O->Get_Actual_Output() > O->Get_Thres())
 //		{
@@ -59,16 +58,16 @@ int main()
 //			cout << "0";
 //		}
 		mse.at(i) = O->Get_Error();
-		previous_it.at(i) = O->Get_Weight();
-		previous_it1.at(i) = N->Get_Weight();
-		previous_it2.at(i) = N1->Get_Weight();
+//		previous_it.at(i) = O->Get_Weight();
+//		previous_it1.at(i) = N->Get_Weight();
+//		previous_it2.at(i) = N1->Get_Weight();
 	}
 	cout << "]";
 	for (auto &z : O->Get_Hidden_Grad())
 	{
 		cout << " " << (z);
 	}
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < mse.size(); i++)
 	{
 		sum += (mse.at(i) * mse.at(i));
 	}
