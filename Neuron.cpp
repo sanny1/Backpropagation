@@ -9,11 +9,12 @@ using namespace Ann;
 using namespace std;
 
 
-Neuron::Neuron(int size,int Bias): actual_output(1,0), weight(size,0), input(size,0), hidden_e_gradient(size,0)
+Neuron::Neuron(int size, int Bias) : actual_output(1, 0), weight(size + 1, 0), input(size, 0),
+                                     hidden_e_gradient(size, 0)
 {
 	default_random_engine generator(rand());
-	uniform_real_distribution<float> wei(0,3.4);//0 to 2.4 distribution seems to work better than 0 1
-	for(int i = 0; i < size; i++)
+	uniform_real_distribution<float> wei(0, 1);//0 to 2.4 distribution seems to work better than 0 1
+	for (int i = 0; i < (size + 1); i++)
 	{
 		weight.at(i) = wei(generator);
 	}
@@ -30,6 +31,7 @@ Neuron::Neuron(int size,int Bias): actual_output(1,0), weight(size,0), input(siz
 Neuron::~Neuron()
 {
 }
+
 void Neuron::Set_input(vector<float> inputs)
 {
 	input = inputs;
@@ -43,37 +45,46 @@ int Neuron::Get_Input_Size()
 void Neuron::Activation_Func()
 {
 	float sum = 0;
-	for(int i = 0; i < input.size(); i++)
+	for (int i = 0; i < (input.size()); i++)
 	{
-		sum += (input.at(i)*weight.at(i))- threshold;
+		sum += (input.at(i) * weight.at(i+1));
 		//	sum += bias*(weight.at(0));
 	}
-	actual_output.at(0) = 1/(1+exp(-sum));//haven't initialised however many outputs
+	sum += bias * weight.at(0);
+	actual_output.at(0) = 1 / (1 + exp(-sum));//haven't initialised however many outputs
 //	cout << " This is actual "
 //	<< actual_output.at(0) << endl;
 }
 
 void Neuron::Error_Evalutation(int i)
 {
-	error = desired_output.at(i)-actual_output.at(0);
-	error_gradient = actual_output.at(0)*(1-actual_output.at(0))*error;
+	error = desired_output.at(i) - actual_output.at(0);
+	error_gradient = actual_output.at(0) * (1 - actual_output.at(0)) * error;
 	float sum = 0;
-	for(int j = 0; j < 2; j++)
-	{
-		sum += weight.at(j)*error_gradient;
-	}
-	for(int k = 0; k < input.size(); k++)
-		hidden_e_gradient.at(k) = input.at(k)*(1-input.at(k))*sum;
+//	for(int j = 0; j < input.size(); j++)
+//	{
+//		sum += weight.at(j)*error_gradient;
+//	}
+//	sum = sum/input.size();
+	for (int k = 0; k < input.size(); k++)
+		hidden_e_gradient.at(k) = input.at(k) * (1 - input.at(k)) * weight.at(k + 1) * error_gradient;
 //	cout << " this is error " << error_gradient << endl;
 }
 
 void Neuron::Adjustment_Func()
 {
 	fak_weig = weight;
-	for(int i = 0; i < weight.size(); i++)
+	for (int i = 0; i < weight.size(); i++)
 	{
-		fak_weig.at(i) = ((learning_rate*input.at(i)*error_gradient)+(0.0*pre_it.at(i))) ;
-		weight.at(i) +=fak_weig.at(i);
+		if (i == 0)
+		{
+			weight.at(i) += learning_rate * bias * error_gradient;
+		}
+		else
+		{
+			fak_weig.at(i) = ((learning_rate * input.at(i-1) * error_gradient));
+			weight.at(i) += fak_weig.at(i);
+		}
 	}
 }
 
