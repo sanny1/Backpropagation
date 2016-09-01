@@ -13,16 +13,13 @@ Neuron::Neuron(int size, int Bias) : actual_output(1, 0), weight(size + 1, 0), i
                                      hidden_e_gradient(size, 0)
 {
 	default_random_engine generator(rand());
-	uniform_real_distribution<float> wei(0, 1);//0 to 2.4 distribution seems to work better than 0 1
+	uniform_real_distribution<float> wei(0, 1);
 	for (int i = 0; i < (size + 1); i++)
 	{
 		weight.at(i) = wei(generator);
 	}
 	threshold = 0.7;
-	//changing the threshold makes it easier for the neural network to calculate
-	//wei(generator) this creates a threshold for every neuron
-	//0.7 was the right threshold for the program to run
-	bias = Bias;//not being used
+	bias = Bias;//bais is what was needed to help me
 	learning_rate = 0.3;//0.3 seems to output the fastest in this set up
 	// learning rate changes the speed but comes at a price of
 	// missing the right value and might skip it
@@ -45,7 +42,7 @@ int Neuron::Get_Input_Size()
 void Neuron::Activation_Func()
 {
 	float sum = 0;
-	for (int i = 0; i < (input.size()); i++)
+	for (int i = 0; i < (input.size()); i++)//change this and the error gradient function for better
 	{
 		sum += (input.at(i) * weight.at(i+1));
 		//	sum += bias*(weight.at(0));

@@ -3,8 +3,8 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Layer.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Layer.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Layers.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Layers.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Neuron.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Neuron.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
