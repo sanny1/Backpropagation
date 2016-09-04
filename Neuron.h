@@ -17,7 +17,7 @@ namespace Ann
 	private:
 		float threshold;
 		vector<float> input;
-		vector<int> desired_output;
+		vector<float> desired_output;
 		vector<float> actual_output;
 		vector<float> weight;
 		vector<float> pre_it;
@@ -38,7 +38,8 @@ namespace Ann
 		void Adjustment_Func();
 	public:
 		void Set_input(vector<float> input);
-		void Set_Desired_Output(vector<int> desired);
+		void Set_Desired_Output(vector<float> desired);
+		void Set_weight(vector<float> weig);
 		int Get_Input_Size();
 		vector<float> Get_input();
 		void Set_Error_Gradient(float error_grad);
